@@ -1,32 +1,20 @@
 <?php
 require_once 'classes/Compte.php';
+require_once 'classes/CompteCourant.php';
+require_once 'classes/CompteEpargne.php';
 
 // On instancie le compte
-$compte1 = new Compte("Julien", 500);
-
-// On écrit dans la propriété titulaire
-// $compte1->titulaire = "Julien";
-
-// On écrit dans la propriété solde
-// $compte1->solde = 2500;
-
-// On dépose 100€
-$compte1->deposer(100);
-
-var_dump($compte1);
-?>
-
-<p><?= $compte1->voirSolde() ?></p>
-<?php
-
+$compte1 = new CompteCourant('Julien', 500, 200);
 $compte1->retirer(200);
 
-$compte1->voirSolde();
+echo "<br>";
 
-/* $compte2 = new Compte("Bobby");
+var_dump($compte1);
 
-// $compte2->titulaire = "Bobby";
+$compteEpargne = new CompteEpargne('Julien', 800, 10);
 
-$compte2->solde = 523.52;
+var_dump($compteEpargne);
 
-var_dump($compte2); */
+$compteEpargne->verserInterets();
+
+var_dump($compteEpargne);

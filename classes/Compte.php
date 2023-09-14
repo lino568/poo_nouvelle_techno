@@ -3,7 +3,7 @@
 /**
  * Objet compte bancaire
  */
-class Compte
+abstract class Compte
 {
   // Propriétés 
   /**
@@ -11,15 +11,20 @@ class Compte
    *
    * @var [string]
    */
-  public $titulaire;
+  private $titulaire;
 
   /**
    * Solde du compte
    *
    * @var [float]
    */
-  public $solde;
+  protected $solde;
 
+  // Constantes
+  /* const TAUX_INTERETS = 5; */
+  private const TAUX_INTERETS = 5;
+
+  // Méthodes
   /**
    * Constructeur de compte bancaire
    *
@@ -33,6 +38,67 @@ class Compte
 
     // On attribue le montant à la propriété solde
     $this->solde = $montant;
+  }
+
+  /**
+   * Méthode magique pour la conversion en chaine de caractères
+   *
+   * @return string
+   */
+  public function __toString()
+  {
+    return "Vous visualisez le compte de $this->titulaire, le solde est de $this->solde euros";
+  }
+
+  //Accesseurs
+
+  /**
+   * Getter de Titulaire - Retourne la valeur de titulaire du compte
+   *
+   * @return string
+   */
+  public function getTitulaire(): string
+  {
+    return $this->titulaire;
+  }
+
+  /**
+   * Modofie le nom du titulaire et retourne l'objet
+   *
+   * @param string $nom Nom du titulaire
+   * @return Compte Compte bancaire
+   */
+  public function setTitulaire(string $nom): self
+  {
+    // On vérifie si on a un titulaire
+    if ($nom != "") {
+      $this->titulaire = $nom;
+    }
+    return $this;
+  }
+
+  /**
+   * Retourne le solde du compte
+   *
+   * @return float Solde du compte
+   */
+  public function getSolde(): float
+  {
+    return $this->solde;
+  }
+
+  /**
+   * Modifie le solde du compte
+   *
+   * @param float $montant Montant du solde
+   * @return Compte Compte bancaire
+   */
+  public function setSolde(float $montant): self
+  {
+    if ($montant >= 0) {
+      $this->solde = $montant;
+    }
+    return $this;
   }
 
   /**
@@ -68,7 +134,7 @@ class Compte
   public function retirer(float $montant)
   {
     // On vérifie le montant et le solde
-    if ($montant > 0 && $this->solde > 0) {
+    if ($montant > 0 && $this->solde >= $montant) {
       $this->solde -= $montant;
     } else {
       echo "Retrait impossible";
