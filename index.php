@@ -1,20 +1,37 @@
 <?php
-require_once 'classes/Compte.php';
-require_once 'classes/CompteCourant.php';
-require_once 'classes/CompteEpargne.php';
+
+use App\Autoloader;
+use App\Client\Compte as CompteClient;
+use App\Banque\{CompteCourant, CompteEpargne};
+
+require_once 'classes/Autoloader.php';
+Autoloader::register();
+
+$client = new CompteClient('Uchiha', 'Madara', 'Bangkok');
 
 // On instancie le compte
-$compte1 = new CompteCourant('Julien', 500, 200);
-$compte1->retirer(200);
+$compte1 = new CompteCourant($client, 500, 200);
 
-echo "<br>";
+// $compte2 = new CompteClient();
+
+// $compte1->retirer(200);
+
 
 var_dump($compte1);
 
-$compteEpargne = new CompteEpargne('Julien', 800, 10);
+echo "<br><br>";
+
+$compteEpargne = new CompteEpargne($client, 800, 10);
 
 var_dump($compteEpargne);
+echo "<br><br>";
 
-$compteEpargne->verserInterets();
+var_dump($client);
 
-var_dump($compteEpargne);
+// $compteEpargne->verserInterets();
+
+// var_dump($compteEpargne);
+
+// $client = new CompteClient;
+
+// var_dump($client);
